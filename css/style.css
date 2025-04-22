@@ -9,6 +9,7 @@
 
 .header {
     overflow: hidden;
+    flex-wrap: wrap;
     background-color: #f4f4f4;
     padding: 10px 10px;
     display: flex;
@@ -194,6 +195,10 @@ body {
         display: none;
     }
 
+    .header a {
+        text-decoration: underline 1px ;
+
+    }
 }
 
 @media screen and (max-width:500) {
