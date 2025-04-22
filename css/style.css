@@ -195,10 +195,6 @@ body {
         display: none;
     }
 
-    .header a {
-        text-decoration: underline 1px ;
-
-    }
 }
 
 @media screen and (max-width:500) {
