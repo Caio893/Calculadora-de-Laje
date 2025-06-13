@@ -157,12 +157,12 @@
       const doc = new jsPDF();
 
       const corpo = [
-        ["natureza_operacao", "VENDA"],
-        ["data_emissao", new Date().toLocaleDateString()],
-        ["cnpj_emitente", "12.345.678/0001-99"],
-        ["razao_social", "Empresa Exemplo"],
-        ["nome_cliente", "Fulano de Tal"],
-        ["valor_total", "R$ 1.000,00"]
+        ["Natureza da Operação", "VENDA"],
+        ["Data da Emissão", new Date().toLocaleDateString()],
+        ["CNPJ Emitente", "12.345.678/0001-99"],
+        ["Razão Social", "Empresa Exemplo"],
+        ["Nome do Cliente", "Fulano de Tal"],
+        ["Valor Total", "R$ 1.000,00"]
       ];
 
       doc.autoTable({
