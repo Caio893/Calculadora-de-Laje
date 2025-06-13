@@ -43,7 +43,7 @@
 
         <div class="input-field">
           <i class="fa-solid fa-ruler-horizontal"></i>
-          <input type="number" id="largura" step="0.01" requi>
+          <input type="number" id="largura" step="0.01" min="0" required>
           <span>m</span>
         </div>
 
@@ -53,7 +53,7 @@
 
         <div class="input-field">
           <i class="fa-solid fa-ruler-vertical"></i>
-          <input type="number" id="comprimento" step="0.01" required>
+          <input type="number" id="comprimento" step="0.01" min="0" required>
           <span>m</span>
         </div>
 
@@ -87,7 +87,12 @@
   
       const largura = parseFloat(document.getElementById("largura").value);
       const comprimento = parseFloat(document.getElementById("comprimento").value);
-      if (!largura || !comprimento) return alert("Preencha todos os campos!");
+      if (isNaN(largura) || isNaN(comprimento)) {
+        return alert("Preencha todos os campos!");
+      }
+      if (largura <= 0 || comprimento <= 0) {
+        return alert("Informe valores positivos para as dimensões.");
+      }
   
       const area = largura * comprimento;
       const preco = area * 50;
@@ -146,12 +151,13 @@
     }
   
     function enviarEmail() {
-      const email = document.getElementById("email").value;
-      if (!email || !email.includes("@")) {
+      const email = document.getElementById("email").value.trim();
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
         alert("Digite um e-mail válido.");
         return;
       }
-  
+
       document.getElementById("statusEnvio").innerText = "Enviado com sucesso!";
     }
   </script>
