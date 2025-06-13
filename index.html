@@ -119,34 +119,31 @@
         largura,
         comprimento
       };
+
+      // Campos solicitados no relatório
+      window.camposSolicitados = {
+        cliente: "Fulano da Silva",
+        empresa: "Forte Lajes",
+        cnpj: "22.554.550/0001-95",
+        inscricaoEstadual: "51984986516",
+        endereco: "Rua Exemplo, 123 - Cidade"
+      };
     }
   
     async function gerarPDF() {
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF();
-  
-      const hoje = new Date();
-      const data = hoje.toLocaleDateString();
-  
-      const r = window.relatorioData;
-  
+
+      const campos = window.camposSolicitados || {};
+
       doc.setFontSize(12);
-      doc.text("FORTE LAJES - RELATÓRIO DE VENDA", 20, 20);
-      doc.text("Data de Emissão: " + data, 20, 30);
-      doc.text("Cliente: Fulano da Silva", 20, 40);
-      doc.text("Empresa: Forte Lajes", 20, 50);
-      doc.text("CNPJ: 22.554.550-0001/95", 20, 60);
-      doc.text("Inscrição Estadual: 51984986516", 20, 70);
-      doc.text("Endereço: Est. Comandante Luiz Souto 462 - Tanque, RJ, CEP: 22733040", 20, 80);
-  
-      doc.text("------ DETALHES ------", 20, 95);
-      doc.text(`Largura da laje: ${r.largura} m`, 20, 105);
-      doc.text(`Comprimento: ${r.comprimento} m`, 20, 115);
-      doc.text(`Área total: ${r.area} m²`, 20, 125);
-      doc.text(`Quantidade de Vigas: ${r.vigas}`, 20, 135);
-      doc.text(`Quantidade de Isopores: ${r.isopores}`, 20, 145);
-      doc.text(`Preço Total: R$ ${r.preco}`, 20, 155);
-  
+
+      let posY = 20;
+      for (const [campo, valor] of Object.entries(campos)) {
+        doc.text(`${campo}: ${valor}`, 20, posY);
+        posY += 10;
+      }
+
       doc.save("relatorio_forte_lajes.pdf");
     }
   
