@@ -5,7 +5,7 @@ const form = document.getElementById('form');
     return valor % 1 === 0 ? valor : Math.ceil(valor);
   }
 
-  function calcular() {
+  function calcular(event) {
     const largura = parseFloat(document.getElementById("largura").value);
     const comprimento = parseFloat(document.getElementById("comprimento").value);
 

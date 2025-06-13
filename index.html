@@ -57,7 +57,7 @@
           <span>m</span>
         </div>
 
-        <button id="button" onclick="calcular()">Calcular</button>
+        <button id="button" onclick="calcular(event)">Calcular</button>
 
       </form>
       <div id="result">
@@ -82,7 +82,7 @@
   </main>
   <script src="script/script.js"></script>
   <script>
-    function calcular() {
+    function calcular(event) {
       event.preventDefault();
   
       const largura = parseFloat(document.getElementById("largura").value);
