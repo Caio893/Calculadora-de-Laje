@@ -66,8 +66,7 @@
       </div>
       <div id="relatorio" style="display:none; margin-top: 20px;">
         <h3>Relatório Gerado</h3>
-        <button onclick="gerarPDF()">Baixar PDF</button>
-        <button onclick="gerarOrcamentoPDF()">Baixar Orçamento</button>
+        <button onclick="gerarOrcamentoPDF()">Baixar Relatório</button>
       
         <div style="margin-top: 10px;">
           <label for="email">Enviar para e-mail:</label>
@@ -123,54 +122,31 @@
       };
     }
   
-    async function gerarPDF() {
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF();
-  
-      const hoje = new Date();
-      const data = hoje.toLocaleDateString();
-  
-      const r = window.relatorioData;
-  
-      doc.setFontSize(12);
-      doc.text("FORTE LAJES - RELATÓRIO DE VENDA", 20, 20);
-      doc.text("Data de Emissão: " + data, 20, 30);
-      doc.text("Cliente: Fulano da Silva", 20, 40);
-      doc.text("Empresa: Forte Lajes", 20, 50);
-      doc.text("CNPJ: 22.554.550-0001/95", 20, 60);
-      doc.text("Inscrição Estadual: 51984986516", 20, 70);
-      doc.text("Endereço: Est. Comandante Luiz Souto 462 - Tanque, RJ, CEP: 22733040", 20, 80);
-  
-      doc.text("------ DETALHES ------", 20, 95);
-      doc.text(`Largura da laje: ${r.largura} m`, 20, 105);
-      doc.text(`Comprimento: ${r.comprimento} m`, 20, 115);
-      doc.text(`Área total: ${r.area} m²`, 20, 125);
-      doc.text(`Quantidade de Vigas: ${r.vigas}`, 20, 135);
-      doc.text(`Quantidade de Isopores: ${r.isopores}`, 20, 145);
-      doc.text(`Preço Total: R$ ${r.preco}`, 20, 155);
-  
-      doc.save("relatorio_forte_lajes.pdf");
-    }
 
     function gerarOrcamentoPDF() {
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF();
 
-      const corpo = [
-        ["Natureza da Operação", "VENDA"],
-        ["Data da Emissão", new Date().toLocaleDateString()],
-        ["CNPJ Emitente", "12.345.678/0001-99"],
-        ["Razão Social", "Empresa Exemplo"],
-        ["Nome do Cliente", "Fulano de Tal"],
-        ["Valor Total", "R$ 1.000,00"]
-      ];
+      const r = window.relatorioData;
 
-      doc.autoTable({
-        head: [["Campo", "Valor"]],
-        body: corpo,
-      });
+      doc.setFontSize(12);
+      doc.text("FORTE LAJES - RELATÓRIO DE VENDA", 20, 20);
+      doc.text("Razão Social: Forte Lajes", 20, 30);
+      doc.text("Inscrição Estadual: 51984986516", 20, 40);
+      doc.text(
+        "Endereço do emitente: Est. Comandante Luiz Souto 462 - Tanque, RJ, CEP: 22733040",
+        20,
+        50
+      );
 
-      doc.save("orcamento.pdf");
+      doc.text("------ Materiais Comprados ------", 20, 65);
+      doc.text(`Largura da laje: ${r.largura} m`, 20, 75);
+      doc.text(`Comprimento: ${r.comprimento} m`, 20, 85);
+      doc.text(`Área total: ${r.area} m²`, 20, 95);
+      doc.text(`Quantidade de Vigas: ${r.vigas}`, 20, 105);
+      doc.text(`Quantidade de Isopores: ${r.isopores}`, 20, 115);
+
+      doc.save("relatorio_orcamento.pdf");
     }
   
     function enviarEmail() {
