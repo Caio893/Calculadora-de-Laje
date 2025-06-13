@@ -10,6 +10,7 @@
     integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
 
 </head>
 
@@ -66,6 +67,7 @@
       <div id="relatorio" style="display:none; margin-top: 20px;">
         <h3>Relatório Gerado</h3>
         <button onclick="gerarPDF()">Baixar PDF</button>
+        <button onclick="gerarOrcamentoPDF()">Baixar Orçamento</button>
       
         <div style="margin-top: 10px;">
           <label for="email">Enviar para e-mail:</label>
@@ -148,6 +150,27 @@
       doc.text(`Preço Total: R$ ${r.preco}`, 20, 155);
   
       doc.save("relatorio_forte_lajes.pdf");
+    }
+
+    function gerarOrcamentoPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      const corpo = [
+        ["natureza_operacao", "VENDA"],
+        ["data_emissao", new Date().toLocaleDateString()],
+        ["cnpj_emitente", "12.345.678/0001-99"],
+        ["razao_social", "Empresa Exemplo"],
+        ["nome_cliente", "Fulano de Tal"],
+        ["valor_total", "R$ 1.000,00"]
+      ];
+
+      doc.autoTable({
+        head: [["Campo", "Valor"]],
+        body: corpo,
+      });
+
+      doc.save("orcamento.pdf");
     }
   
     function enviarEmail() {
